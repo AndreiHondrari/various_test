@@ -1,0 +1,11 @@
+[[source]]
+name = "celerytest"
+
+[dev-packages]
+ipdb = "*"
+
+[packages]
+celery = "*"
+
+[requires]
+python_version = "3.9"

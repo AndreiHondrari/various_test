@@ -17,6 +17,9 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT"
       KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
 
+    networks:
+        - postboard-net
+
   postboard-stalker:
     container_name: postboard-stalker
     image: obsidiandynamics/kafdrop
@@ -30,3 +33,9 @@ services:
 
     depends_on:
       - "postboard"
+
+    networks:
+        - postboard-net
+
+networks:
+    postboard-net:

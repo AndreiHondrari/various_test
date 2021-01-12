@@ -1,0 +1,13 @@
+version: '2'
+
+services:
+  kafka:
+    image: wurstmeister/kafka
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_CREATE_TOPICS: "syslog:1:1,config_audit:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  # Kafka/zookeeper setup taken from https://wurstmeister.github.io/kafka-docker/
+  zookeeper:
+    image: wurstmeister/zookeeper

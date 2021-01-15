@@ -19,7 +19,7 @@ log_config = {
         },
         'logr2': {
             'handlers': ['h1'],
-            'level': 'INFO'
+            'level': 'ERROR'
         }
     }
 }
@@ -32,3 +32,4 @@ l2 = logging.getLogger('logr2')
 
 l1.info("logr1 hello")
 l2.info("logr2 hello")
+l2.error('ahem')

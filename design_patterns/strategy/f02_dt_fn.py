@@ -16,6 +16,17 @@ def calculate_mean_average(numbers):
     return sum(numbers) / len(numbers)
 
 
+def prod(numbers):
+    assert len(numbers) >= 1
+    return numbers[0] * prod(numbers[1:]) if (len(numbers) > 1) else numbers[0]
+
+
+def calculate_geometric_mean_average(numbers):
+    """Strategy for geometric mean average"""
+    assert len(numbers) > 1
+    return prod(numbers) ** (1/len(numbers))
+
+
 def calculate_median_average(numbers):
     """Strategy for median average"""
 
@@ -33,10 +44,6 @@ def calculate_median_average(numbers):
     else:
         # when odd
         return numbers[first_index]
-
-
-def calculate_mode_average(numbers):
-    """Strategy for mode average"""
 
 
 # Context
@@ -71,12 +78,13 @@ if __name__ == "__main__":
     )
     print(f"Mean absolute deviation: {mean_absolute_deviation}")
 
+    geometric_mean_absolute_deviation = compute_absolute_deviation(
+        calculate_geometric_mean_average, values
+    )
+    print(f"Geometric mean absolute deviation: "
+          f"{geometric_mean_absolute_deviation}")
+
     median_absolute_deviation = compute_absolute_deviation(
         calculate_median_average, values
     )
     print(f"Median absolute deviation: {median_absolute_deviation}")
-
-    mode_absolute_deviation = compute_absolute_deviation(
-        calculate_mode_average, values
-    )
-    print(f"Mode absolute deviation: {mode_absolute_deviation}")

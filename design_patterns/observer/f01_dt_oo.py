@@ -80,7 +80,8 @@ class SpeedSensor(SubjectMixin, Subject):
 
 class MomentaryAcceleration(Observer):
 
-    def __init__(self):
+    def __init__(self, sensor: SpeedSensor):
+        self.speed_sensor = sensor
         self.value: float = 0.0
         self.last_speed_value: int = 0
         self.last_acquisition_moment: datetime = datetime.now()
@@ -90,39 +91,46 @@ class MomentaryAcceleration(Observer):
         return self.value
 
     def update(self, subject: Subject):
+        assert isinstance(subject, SpeedSensor)
+
         # determine the duration
         previous_moment = self.last_acquisition_moment
-        current_moment = subject.acquisition_moment
+        current_moment = self.speed_sensor.acquisition_moment
         duration = (current_moment - previous_moment).total_seconds()
 
         if duration < 1.0:
             return  # do nothing
 
         # calculate the instant acceleration value
-        self.value = (subject.value - self.last_speed_value) / duration
+        self.value = (
+            self.speed_sensor.value - self.last_speed_value
+        ) / duration
 
         # backtrack
-        self.last_speed_value = subject.value
-        self.last_acquisition_moment = subject.acquisition_moment
+        self.last_speed_value = self.speed_sensor.value
+        self.last_acquisition_moment = self.speed_sensor.acquisition_moment
 
 
 class SpeedHistory(Observer):
 
-    def __init__(self):
+    def __init__(self, sensor: SpeedSensor):
+        self.speed_sensor = sensor
         self.last_acquisition_moment: datetime = datetime.now()
         self.values_history: Dict[datetime] = {}
 
     def update(self, subject: Subject):
+        assert isinstance(subject, SpeedSensor)
+
         # determine the duration
         previous_moment = self.last_acquisition_moment
-        current_moment = subject.acquisition_moment
+        current_moment = self.speed_sensor.acquisition_moment
         duration = (current_moment - previous_moment).total_seconds()
 
         if duration < 1.0:
             return  # do nothing
 
-        self.values_history[subject.acquisition_moment] = subject.value
-        self.last_acquisition_moment = subject.acquisition_moment
+        self.values_history[current_moment] = self.speed_sensor.value
+        self.last_acquisition_moment = self.speed_sensor.acquisition_moment
 
 
 if __name__ == "__main__":
@@ -130,8 +138,8 @@ if __name__ == "__main__":
     sensor = SpeedSensor()
 
     # declare observers
-    acceleration = MomentaryAcceleration()
-    history = SpeedHistory()
+    acceleration = MomentaryAcceleration(sensor)
+    history = SpeedHistory(sensor)
 
     # register observers
     sensor.register_observer(acceleration)

@@ -1,5 +1,5 @@
 """
-Strategy pattern - Object Oriented Paradigm Demonstration
+Strategy pattern - Object-oriented paradigm demonstration
 """
 
 from abc import ABC, abstractmethod

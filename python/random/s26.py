@@ -1,15 +1,12 @@
 
-import os
-import random
-import time
 
-files = os.listdir('somedir')
-for file in files:
-    file = os.path.join('somedir', file)
-    print(time.ctime(os.path.getctime(file)))
+def f1():
 
+    x = 10
 
-# for i in range(3):
-#     pf = open(f'somedir/bla{i}.txt', 'w')
-#     pf.close()
-#     time.sleep(random.random() * 10)
+    def f2():
+        return x
+
+    return f2
+
+print(f1()())

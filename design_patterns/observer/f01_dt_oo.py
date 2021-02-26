@@ -2,11 +2,10 @@
 Observer pattern - Object-oriented paradigm demonstration
 """
 import random
-import time
 
 from abc import ABC, abstractmethod
 from typing import Dict
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 # Interfaces
@@ -72,9 +71,9 @@ class SpeedSensor(SubjectMixin, Subject):
         self.value: int = 0
         self.acquisition_moment: datetime = datetime.now()
 
-    def alter_speed(self, new_speed):
+    def alter_speed(self, new_speed, acquisition_moment):
         self.value = new_speed
-        self.acquisition_moment = datetime.now()
+        self.acquisition_moment = acquisition_moment
         self.notify_observers()
 
 
@@ -146,17 +145,25 @@ if __name__ == "__main__":
     sensor.register_observer(history)
 
     # example
+    acquisition_moment = sensor.acquisition_moment  # first acquisition_moment
+
     for _ in range(20):
-        time.sleep(0.1 + random.random())
         new_speed = random.randint(0, 50)
+        milliseconds_diff = (0.1 + random.random()) * 1000
+        acquisition_moment = acquisition_moment + timedelta(
+            milliseconds=milliseconds_diff
+        )
 
         # change a value in the subject
-        print(f"speed: {new_speed}")
-        sensor.alter_speed(new_speed)
+        print(f"speed: {new_speed} at {acquisition_moment}")
+        sensor.alter_speed(new_speed, acquisition_moment)
 
         # see how the observers updated themselves as a result
         print(f"acceleration: {acceleration.value}")
         history_manifest = "".join(
-            map(lambda t: f"    - {t[0]} |    {t[1]}\n", history.values_history.items())
+            map(
+                lambda t: f"    - {t[0]} |    {t[1]}\n",
+                history.values_history.items()
+            )
         )
         print(f"history:\n{history_manifest}")

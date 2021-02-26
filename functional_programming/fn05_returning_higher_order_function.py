@@ -17,6 +17,10 @@ def create_two_inputs_to_one_output_function(
     first_function: Callable,
     second_function: Callable,
 ) -> int:
+    """
+    Notice that the set of inputs matches
+    the set of inputs of the first function.
+    """
 
     def composed_function(a: int, b: int):
         return second_function(first_function(a, b))

@@ -19,6 +19,16 @@ def calculate_composed(
     a: int,
     b: int
 ) -> int:
+    """
+    Notice how the a and b inputs map to the first_function inputs.
+    The calculate_composed is the perfect embodiment of the two functions and
+    the a and b numbers, functions being part of the whole operation
+    the same way as a and b are, making calculate_composed a superior function.
+
+    It expects that:
+        - first_function is a mapping of (int, int) -> int
+        - second_function is a mpping of int -> int
+    """
     return second_function(first_function(a, b))
 
 

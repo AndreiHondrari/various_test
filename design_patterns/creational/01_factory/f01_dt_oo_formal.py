@@ -3,6 +3,9 @@
 # define classes to be instantiated by the factory
 
 class A:
+    """
+    Concrete class #1
+    """
 
     def __init__(self, created_by: str) -> None:
         self.created_by: str = created_by
@@ -12,6 +15,9 @@ class A:
 
 
 class B:
+    """
+    Concrete class #2
+    """
 
     def __init__(self, created_by: str) -> None:
         self.created_by: str = created_by
@@ -23,6 +29,9 @@ class B:
 # define the factory
 
 class Factory:
+    """
+    The factory that will create A or B
+    """
 
     def __init__(self, name: str) -> None:
         self.name: str = name
@@ -37,6 +46,9 @@ class Factory:
 # define the factory user
 
 class FactoryUser:
+    """
+    A class that can use the factory from within
+    """
 
     def __init__(self, factory: Factory) -> None:
         self.factory = factory

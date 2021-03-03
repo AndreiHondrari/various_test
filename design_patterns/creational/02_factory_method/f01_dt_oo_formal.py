@@ -13,7 +13,7 @@ class Something(abc.ABC):
         self.created_by: str = created_by
 
     def talk(self) -> None:
-        class_name = type(self).__name__
+        class_name = self.__class__.__name__
         print(f"I'm {class_name}({id(self)}) created by `{self.created_by}`")
 
 

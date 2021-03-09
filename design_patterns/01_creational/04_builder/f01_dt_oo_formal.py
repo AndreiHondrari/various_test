@@ -263,10 +263,8 @@ if __name__ == "__main__":
 
     print("\nBUILDER C\n---------\n")
 
-    # builder_c.build_step_1()
-    # builder_c.build_step_1()
-    # builder_c.build_step_1()
-    # builder_c.build_step_1()
+    builder_c.build_step_1()
+    builder_c.build_step_1()
     product = builder_c.get_result()
     print(f"Usage #1 {product}")
 

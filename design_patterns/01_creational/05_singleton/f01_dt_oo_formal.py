@@ -23,5 +23,5 @@ if __name__ == "__main__":
     o3 = SomethingUnique('CCC')
 
     print(f"o1: {id(o1)}: {o1.name}")
-    print(f"o1: {id(o2)}: {o2.name}")
-    print(f"o1: {id(o3)}: {o3.name}")
+    print(f"o2: {id(o2)}: {o2.name}")
+    print(f"o3: {id(o3)}: {o3.name}")

@@ -2,21 +2,22 @@
 Strategy pattern - Object-oriented paradigm demonstration
 """
 
-from abc import ABC, abstractmethod
+import abc
+
 from collections import namedtuple
 
 
 TransitResult = namedtuple('TransitResult', ['logs', 'remaining_fuel'])
 
 
-class TransitBehaviour(ABC):
+class TransitBehaviour(abc.ABC):
     """
     Strategy Interface
     """
 
-    @abstractmethod
-    def transit(self, fuel_quantity, distance):
-        pass
+    @abc.abstractmethod
+    def transit(self, fuel_quantity: int, distance: int) -> TransitResult:
+        raise NotImplementedError
 
 
 class Fly(TransitBehaviour):
@@ -24,7 +25,7 @@ class Fly(TransitBehaviour):
     Strategy - for flight
     """
 
-    def transit(self, fuel_quantity, distance):
+    def transit(self, fuel_quantity: int, distance: int) -> TransitResult:
         assert fuel_quantity >= 0
         assert distance > 0, "Distance must be positive"
 
@@ -63,7 +64,7 @@ class Sail(TransitBehaviour):
     Strategy - for sailing
     """
 
-    def transit(self, fuel_quantity, distance):
+    def transit(self, fuel_quantity: int, distance: int) -> TransitResult:
         FUEL_CONSUMPTION_RATE = 10000
         logs = []
 
@@ -94,22 +95,22 @@ class Station(TransitBehaviour):
     Strategy - for doing nothing
     """
 
-    def transit(self, fuel_quantity, distance):
+    def transit(self, fuel_quantity: int, distance: int) -> TransitResult:
         return TransitResult(
             logs=["Engine makes a weird noise and stops"],
             remaining_fuel=fuel_quantity
         )
 
 
-class Vehicle(ABC):
+class Vehicle(abc.ABC):
     """Context"""
 
     def __init__(
         self,
-        name,
-        fuel_quantity,
-        transit_behaviour
-    ):
+        name: str,
+        fuel_quantity: int,
+        transit_behaviour: TransitBehaviour
+    ) -> None:
         self.name = name
 
         self._initial_fuel_quantity = fuel_quantity
@@ -118,7 +119,7 @@ class Vehicle(ABC):
         # we attach the strategy to our context
         self.transit_behaviour = transit_behaviour
 
-    def transit(self, distance):
+    def transit(self, distance: int) -> None:
         assert distance > 0
 
         # we use the strategy

@@ -8,19 +8,11 @@ Defines an abstract method (the factory method) that has to be implemented by th
 
 ## Use cases
 
-* the objects that have to be created are not known
-* interchangeable serializers that can be used by view classes. Example: XMLView uses a XMLSerializer, whereas a JSONView uses a JSONSerializer. Both XMLView and JSONView inherit from a base view class, which has a ***get_serializer*** factory method
+- the objects that have to be created are not known
+- interchangeable serializers that can be used by view classes. Example: XMLView uses a XMLSerializer, whereas a JSONView uses a JSONSerializer. Both XMLView and JSONView inherit from a base view class, which has a ***get_serializer*** factory method
 
 ## Dissection
 
-### Object oriented
-
-#### Parts
-
-* **Factory** - the class that has the abstract factory method and uses it
-* **Factory subclass** - the class that inherits from factory and implements the factory method
-* **Product** - the type that is instantiated by the factory subclass in the factory method
-
-### Functional
-
-Not different from factory
+- **Factory** - the class that has the abstract factory method and uses it
+- **Factory subclass** - the class that inherits from factory and implements the factory method
+- **Product** - the type that is instantiated by the factory subclass in the factory method

@@ -11,5 +11,5 @@ The purpose is the cloning of objects that would be usually costly to copy, and 
 
 ## Dissection
 
-**AbstractPrototype** - an interface that defines at least a clone method which must be implemented by concrete prototype classes
-**ConcretePrototype** - implements the clone method defined in the *AbstractPrototype* interface
+**Abstract prototype** - an interface that defines at least a clone method which must be implemented by concrete prototype classes
+**Concrete prototype** - implements the clone method defined in the *AbstractPrototype* interface

@@ -56,7 +56,7 @@ class Component2(Component):
         return lambda a, b: a * b
 
 
-class Product(abc.ABC):
+class Product:
 
     def __init__(self) -> None:
         self.components: Set[Component] = set()
@@ -219,7 +219,35 @@ class Director:
     """
 
     def __init__(self) -> None:
-        pass
+        self.builder = ProductBuilderA()
+        self.products: List[Product] = []
+
+    def switch_to_category_1(self) -> None:
+        self.products = []
+
+        for i in range(3):
+            self.builder.reset()
+
+            self.builder.build_step_1()
+            self.builder.build_step_1()
+            self.builder.build_step_1()
+            self.builder.build_step_1()
+
+            self.builder.build_step_3()
+            self.products.append(self.builder.get_result())
+
+    def switch_to_category_2(self) -> None:
+        self.products = []
+
+        for i in range(2):
+            self.builder.reset()
+
+            for j in range(random.randint(5, 10)):
+                self.builder.build_step_1()
+
+            self.builder.build_step_2()
+            self.builder.build_step_3()
+            self.products.append(self.builder.get_result())
 
 
 if __name__ == "__main__":
@@ -275,3 +303,15 @@ if __name__ == "__main__":
     builder_c.build_step_3()
     product = builder_c.get_result()
     print(f"Usage #3 {product}")
+
+    print("\nDIRECTOR\n----------\n")
+
+    director = Director()
+
+    director.switch_to_category_1()
+    d_products = list(map(str, director.products))
+    print(f"Usage #1 {d_products}")
+
+    director.switch_to_category_2()
+    d_products = list(map(str, director.products))
+    print(f"Usage #2 {d_products}")

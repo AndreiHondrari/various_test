@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sample;
+
+message Message {
+    optional string bla = 1;
+    optional int32 a1 = 2;
+    optional int32 a2 = 3;
+    optional int32 a3 = 4;
+    optional int32 a4 = 5;
+    optional int32 a5 = 6;
+}

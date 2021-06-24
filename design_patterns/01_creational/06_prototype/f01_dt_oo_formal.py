@@ -38,7 +38,10 @@ class B(A):
 
     def clone(self) -> 'B':
         """
-        Notice how we have to take into consideration the superclasses fields
+        Notice how we have to take into consideration the superclasses fields.
+        This is painful, perhaps there is a better way to just grab the
+        information without having to look in the
+        source code of the superclass.
         """
 
         duplicate_b = B()

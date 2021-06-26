@@ -10,8 +10,12 @@
 The client always expects a concrete instance that belongs to a specific
 abstraction super-type set
 - **Service/Dependency** - the service/dependency to be injected into clients
-- **Injector/DI Container** - responsible for instantiating the services and
-injecting them into the client
 - **Composition root** - the place closest to the entry point of an application
 that composes a dependency graph by injection. A composition root can span
 multiple classes which belong to the same module.
+- **Injector/DI Container** - responsible for instantiating the services and
+injecting them into the client
+
+# Problems
+
+- **property/setter injection** causes temporal coupling

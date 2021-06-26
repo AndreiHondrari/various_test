@@ -1,4 +1,3 @@
-from typing import Optional
 
 
 class Service:
@@ -15,8 +14,12 @@ class Service:
 
 class Client:
 
-    def __init__(self) -> None:
-        self.dependency: Optional[Service] = None
+    def __init__(self, default_service: Service) -> None:
+        """
+        Injecting a default service for.
+        """
+
+        self.dependency: Service = default_service
 
     def set_dependency(self, service: Service) -> None:
         """
@@ -31,23 +34,19 @@ class Client:
         """
 
         print(f"Start using {str(self.dependency)} from client")
-
-        if self.dependency is not None:  # safeguard against null dependency
-            self.dependency.use()
+        self.dependency.use()
 
 
 if __name__ == '__main__':
     # This is the composition root
-    service1 = Service("X 111")
-    service2 = Service("F 222")
+    default_service = Service("LOCAL")
+    new_service = Service("NOUVEAU")
 
-    client = Client()
+    client = Client(default_service)
+
+    print("\n# Using default service")
     client.do_something()
 
-    print("\n# Using service 1")
-    client.set_dependency(service1)
-    client.do_something()
-
-    print("\n# Using service 2")
-    client.set_dependency(service2)
+    print("\n# Using new service")
+    client.set_dependency(new_service)
     client.do_something()

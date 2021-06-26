@@ -15,6 +15,10 @@ class Service:
 class Client:
 
     def __init__(self, service: Service, name: str):
+        """
+        Constructor that injects our dependency service
+        """
+
         self.name = name
         self.dependency = service
 
@@ -22,6 +26,10 @@ class Client:
         return f"Client({self.name})"
 
     def do_something(self) -> None:
+        """
+        Client method that uses the dependency
+        """
+
         print(f"Start using {str(self.dependency)} from {str(self)}")
         self.dependency.use()
 

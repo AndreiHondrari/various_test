@@ -15,6 +15,10 @@ class Service:
 class Client:
 
     def do_something(self, service: Service) -> None:
+        """
+        Client method that injects and uses the dependency
+        """
+
         print(f"Start using {str(service)} from client")
         service.use()
 

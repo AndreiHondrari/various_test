@@ -12,10 +12,11 @@ The cycle of using an object pool consists of
 
 ## Use cases
 
-
+- when the cost of instantiating is high
+- the objects don't need to be volatile
 
 ## Dissection
 
-
-
-## Problems
+- **Resource** - the object that belongs to a pool
+- **Object pool** - the collection of resources. Has ways of retrieving
+resources and releasing them back into the pool

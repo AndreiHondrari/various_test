@@ -33,7 +33,7 @@ class Resource:
         # simulate long initialization time
         print(f"Creating resource {self._id} ...")
         sleep_duration = random.random()
-        # time.sleep(sleep_duration)
+        time.sleep(sleep_duration)
 
 
 class Pool:

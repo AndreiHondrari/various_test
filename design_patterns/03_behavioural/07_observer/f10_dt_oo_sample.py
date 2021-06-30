@@ -16,8 +16,8 @@ class Observer(ABC):
     """
 
     @abstractmethod
-    def update(self, subject):
-        pass
+    def update(self, subject: 'Subject') -> None:
+        raise NotImplementedError
 
 
 class Subject(ABC):
@@ -26,16 +26,16 @@ class Subject(ABC):
     """
 
     @abstractmethod
-    def register_observer(self, observer: Observer):
-        pass
+    def register_observer(self, observer: Observer) -> None:
+        raise NotImplementedError
 
     @abstractmethod
-    def unregister_observer(self, observer: Observer):
-        pass
+    def unregister_observer(self, observer: Observer) -> None:
+        raise NotImplementedError
 
     @abstractmethod
-    def notify_observers(self):
-        pass
+    def notify_observers(self) -> None:
+        raise NotImplementedError
 
 
 # Mixins
@@ -45,33 +45,34 @@ class SubjectMixin(Subject):
     Standard functionality for the subject
     """
 
-    def __init__(self):
-        self.observers = {}
+    def __init__(self) -> None:
+        self.observers: Dict[int, Observer] = {}
 
-    def register_observer(self, observer: Observer):
+    def register_observer(self, observer: Observer) -> None:
         self.observers[id(observer)] = observer
 
-    def unregister_observer(self, observer: Observer):
+    def unregister_observer(self, observer: Observer) -> None:
         self.observers.pop(id(observer), None)
 
-    def update_observer(self, observer):
-        observer.update(self)
-
-    def notify_observers(self):
+    def notify_observers(self) -> None:
         for observer_id, observer in self.observers.items():
-            self.update_observer(observer)
+            observer.update(self)
 
 
 # Example usage
 
 class SpeedSensor(SubjectMixin, Subject):
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.value: int = 0
         self.acquisition_moment: datetime = datetime.now()
 
-    def alter_speed(self, new_speed, acquisition_moment):
+    def alter_speed(
+        self,
+        new_speed: int,
+        acquisition_moment: datetime
+    ) -> None:
         self.value = new_speed
         self.acquisition_moment = acquisition_moment
         self.notify_observers()
@@ -86,10 +87,10 @@ class MomentaryAcceleration(Observer):
         self.last_acquisition_moment: datetime = datetime.now()
 
     @property
-    def acceleration_value(self):
+    def acceleration_value(self) -> float:
         return self.value
 
-    def update(self, subject: Subject):
+    def update(self, subject: Subject) -> None:
         assert isinstance(subject, SpeedSensor)
 
         # determine the duration
@@ -115,9 +116,9 @@ class SpeedHistory(Observer):
     def __init__(self, sensor: SpeedSensor):
         self.speed_sensor = sensor
         self.last_acquisition_moment: datetime = datetime.now()
-        self.values_history: Dict[datetime] = {}
+        self.values_history: Dict[datetime, float] = {}
 
-    def update(self, subject: Subject):
+    def update(self, subject: Subject) -> None:
         assert isinstance(subject, SpeedSensor)
 
         # determine the duration

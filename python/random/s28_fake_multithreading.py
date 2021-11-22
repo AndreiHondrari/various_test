@@ -363,7 +363,19 @@ def main() -> None:
         Instruction(InstructionCode.JMPI, [50]),  # 48
         # else
         Instruction(InstructionCode.PRINT, [True, 'white']),  # 49
-        # 50
+
+        # for loop
+        Instruction(InstructionCode.DEF, ['INC_VAL', 1]),  # 50
+        Instruction(InstructionCode.SET, ['i', 0]),  # 51
+        Instruction(InstructionCode.SET, ['REF', 10]),  # 52
+        Instruction(InstructionCode.LT, ['i', 'REF', 'res']),  # 53
+        Instruction(InstructionCode.CMP, ['res']),  # 54
+        Instruction(InstructionCode.JMPI, [57]),  # 55
+        Instruction(InstructionCode.JMPI, [60]),  # 56
+        Instruction(InstructionCode.PRINT, [True, 'yahoo']),  # 57
+        Instruction(InstructionCode.ADD, ['i', 'INC_VAL', 'i']),  # 58
+        Instruction(InstructionCode.JMPI, [53]),  # 59
+        Instruction(InstructionCode.PRINT, [True, "DONE"]),  # 60
     ]
 
     execute_threads([
